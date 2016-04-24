@@ -1,13 +1,16 @@
+## Synopsis
 My project involved using the phones accelerometer to control html5 elements on my laptop screen. To do this, I would have to use Node.js to setup a server and Socket.io to transmit events from my phone to the server. I would also need to use Adobe Illustrator to make SVG’s of Phife Dawg, export these SVG files and use them as HTML5 elements which could be manipulated on the laptop screen.
 
 A Physical Web bluetooth beacon would broadcast the mobile website which would have them be opened and accessed on a cellular device.
 To begin I had to setup a basic Node.js server. This involved setting up a server.js file and including these lines:
 
+## Server.js
 var http = require('http');      
 var server = http.createServer();     
 server.listen(8001);
 
- The server still did nothing so the next step was getting it to output “hello world”.
+## Hello World on Server.js
+The server still did nothing so the next step was getting it to output “hello world”.
 I changed the var server variable to this:
 
 var server = http.createServer(function(request, response){        
@@ -18,6 +21,7 @@ response.end();
 
 With these changes we were now sending something to the client. I saved server.js and ran node server.js in the terminal. Upon going to http://localhost:8001 the page said “hello world”!
 
+## Routing
 Now that my server was setup, I needed to setup the routing required. To setup basic routing to the socket.io, I needed to add the following code:
 
 var io = require('socket.io');  
@@ -51,7 +55,9 @@ server.listen(8001);
  io.listen(server);
 
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
+Provide code examples and explanations of how to get the project.
 
+## Mobile.html
 I then created a mobile.html file which would be responsible for sending device orientation information to the server. The main source code for this file was:
   // connect socket
     var socket = io.connect();
@@ -62,7 +68,8 @@ document.addEventListener("touchstart", function() {
 
 document.addEventListener("touchend", function() {
 			socket.emit('playMusic', {'play': false});
-		}, false)
+		}, false);
+
 
 if (window.DeviceOrientationEvent) {
 window.addEventListener('deviceorientation', function(eventData){
@@ -76,6 +83,7 @@ DeviceOrientationHandler(tiltLR, tiltFB, dir);
 			alert("not supported");
 		}
 
+## Audio.js
 In my file that was hosted on the desktop- “socket.html”, I loaded an audio.js file. This file basically listened for an event broadcasted from the server.js file. Once broadcasted the following functions were run:
 
 // play is broadcast, play the song
@@ -111,3 +119,14 @@ socket.on('deviceData', function(data){
 	faceback.style.top = (((fb - 90) * -100)/180) * 0.1 + 50 +"%";
 
 The above functions let me play music on a touch event, or move the Phife SVG’s on screen if the mobile device was tilted in a certain way.
+
+
+
+
+
+
+
+
+
+
+
