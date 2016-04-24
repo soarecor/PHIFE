@@ -19,6 +19,7 @@ response.end();
 With these changes we were now sending something to the client. I saved server.js and ran node server.js in the terminal. Upon going to http://localhost:8001 the page said “hello world”!
 
 Now that my server was setup, I needed to setup the routing required. To setup basic routing to the socket.io, I needed to add the following code:
+
 var io = require('socket.io');  
 var server = http.createServer(function(request, response){     
 var path = url.parse(request.url).pathname;      
