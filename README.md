@@ -62,7 +62,7 @@ switch(path){
 	 io.listen(server);
 ```
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
-Provide code examples and explanations of how to get the project.
+
 
 ## Mobile.html
 I then created a mobile.html file which would be responsible for sending device orientation information to the server. The main source code for this file was:
