@@ -63,40 +63,40 @@ I then created a mobile.html file which would be responsible for sending device 
     var socket = io.connect();
 
 document.addEventListener("touchstart", function() {
-			socket.emit('playMusic', {'play': true});
-		}, false);
+socket.emit('playMusic', {'play': true});
+}, false);
 
 document.addEventListener("touchend", function() {
-			socket.emit('playMusic', {'play': false});
-		}, false);
+socket.emit('playMusic', {'play': false});
+}, false);
 
 
 if (window.DeviceOrientationEvent) {
 window.addEventListener('deviceorientation', function(eventData){
-				var tiltLR = eventData.gamma;
-				var tiltFB = eventData.beta;
-				var dir = 0;
+var tiltLR = eventData.gamma;
+var tiltFB = eventData.beta;
+var dir = 0;
 socket.emit('deviceMove', {'lr': tiltLR, 'fb': tiltFB, 'dir': dir});
-DeviceOrientationHandler(tiltLR, tiltFB, dir);
-			}, false);
-		} else {
-			alert("not supported");
-		}
+DeviceOrientationHandler(tiltLR, tiltFB, dir);}, false);
+} 
+else {
+	alert("not supported");
+}
 
 ## Audio.js
 In my file that was hosted on the desktop- “socket.html”, I loaded an audio.js file. This file basically listened for an event broadcasted from the server.js file. Once broadcasted the following functions were run:
 
 // play is broadcast, play the song
 socket.on('play', function(data) {
-		var audioElem = document.getElementById('audio');
-		if (audioElem.paused) {
-			audioElem.play();
-			console.log("playing");
-		}
-		else{
-			audioElem.pause();
-			console.log("paused");
-		}
+var audioElem = document.getElementById('audio');
+if (audioElem.paused){
+audioElem.play();
+console.log("playing");
+}
+else{
+audioElem.pause();
+console.log("paused");
+}
 });
 
 // When device motion is triggered
