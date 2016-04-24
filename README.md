@@ -5,19 +5,22 @@ A Physical Web bluetooth beacon would broadcast the mobile website which would h
 To begin I had to setup a basic Node.js server. This involved setting up a server.js file and including these lines:
 
 ## Server.js
+```
 var http = require('http');      
 var server = http.createServer();     
 server.listen(8001);
+```
 
 ## Hello World on Server.js
 The server still did nothing so the next step was getting it to output “hello world”.
 I changed the var server variable to this:
-
+```
 var server = http.createServer(function(request, response){        
 response.writeHead(200, {'Content-Type': 'text/html'});         
 response.write('hello world');         
 response.end();     
 }); 
+```
 
 With these changes we were now sending something to the client. I saved server.js and ran node server.js in the terminal. Upon going to http://localhost:8001 the page said “hello world”!
 
