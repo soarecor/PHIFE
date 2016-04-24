@@ -31,32 +31,36 @@ var io = require('socket.io');
 var server = http.createServer(function(request, response){     
 var path = url.parse(request.url).pathname;      
 switch(path){        
-case '/':response.writeHead(200, {'Content-Type': 'text/html'});            
-response.write('hello world');             
-response.end();             
-break;         
-case '/socket.html':             
-fs.readFile(__dirname + path, 
-function(error, data){                 
-if (error){                     
-response.writeHead(404);                     
-response.write("opps this doesn't exist - 404");                     
-response.end();                 
-}                
-else{                     
-response.writeHead(200, {"Content-Type": "text/html"});                     
-response.write(data, "utf8");                     
-response.end();                 
-}});             
-break;         
-default:             response.writeHead(404);             
-response.write("opps this doesn't exist - 404");             
-response.end();             
-break;    
-}});  
-server.listen(8001); 
- io.listen(server);
- ```
+	case '/':response.writeHead(200, {'Content-Type': 'text/html'});            
+	response.write('hello world');             
+	response.end();             
+	break; 
+	
+	case '/socket.html':             
+	fs.readFile(__dirname + path, 
+	function(error, data){                 
+	if (error){                     
+	response.writeHead(404);                     
+	response.write("opps this doesn't exist - 404");                     
+	response.end();                 
+	}                
+	else{                     
+	response.writeHead(200, {"Content-Type": "text/html"});                     
+	response.write(data, "utf8");                     
+	response.end();                 
+	}});             
+	break;       
+	
+	default:             
+	response.writeHead(404);             
+	response.write("opps this doesn't exist - 404");             
+	response.end();             
+	break;    
+	}});  
+	
+	server.listen(8001); 
+	 io.listen(server);
+	 ```
 
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
 Provide code examples and explanations of how to get the project.
@@ -95,15 +99,15 @@ In my file that was hosted on the desktop- “socket.html”, I loaded an audio.
 // play is broadcast, play the song
 socket.on('play', function(data) {
 var audioElem = document.getElementById('audio');
-if (audioElem.paused){
-audioElem.play();
-console.log("playing");
-}
-else{
-audioElem.pause();
-console.log("paused");
-}
-});
+	if (audioElem.paused){
+	audioElem.play();
+	console.log("playing");
+	}
+	else{
+	audioElem.pause();
+	console.log("paused");
+	}
+	});
 
 // When device motion is triggered
 socket.on('deviceData', function(data){
@@ -123,6 +127,8 @@ socket.on('deviceData', function(data){
 	// move shapes up or down on tilt
 	facefront.style.top = (((fb - 90) * -100)/180) * 0.09 + 90 + "%";
 	faceback.style.top = (((fb - 90) * -100)/180) * 0.1 + 50 +"%";
+	})
+}
 ```
 The above functions let me play music on a touch event, or move the Phife SVG’s on screen if the mobile device was tilted in a certain way.
 
