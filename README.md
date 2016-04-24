@@ -2,23 +2,29 @@ My project involved using the phones accelerometer to control html5 elements on 
 
 A Physical Web bluetooth beacon would broadcast the mobile website which would have them be opened and accessed on a cellular device.
 To begin I had to setup a basic Node.js server. This involved setting up a server.js file and including these lines:
+
 var http = require('http');      
 var server = http.createServer();     
 server.listen(8001);
 
  The server still did nothing so the next step was getting it to output “hello world”.
 I changed the var server variable to this:
-var server = http.createServer(function(request, response){         response.writeHead(200, {'Content-Type': 'text/html'});         
+
+var server = http.createServer(function(request, response){        
+response.writeHead(200, {'Content-Type': 'text/html'});         
 response.write('hello world');         
 response.end();     
 }); 
+
 With these changes we were now sending something to the client. I saved server.js and ran node server.js in the terminal. Upon going to http://localhost:8001 the page said “hello world”!
+
 Now that my server was setup, I needed to setup the routing required. To setup basic routing to the socket.io, I needed to add the following code:
 var io = require('socket.io');  
 var server = http.createServer(function(request, response){     
 var path = url.parse(request.url).pathname;      
 switch(path){        
-case '/':response.writeHead(200, {'Content-Type': 'text/html'});             response.write('hello world');             
+case '/':response.writeHead(200, {'Content-Type': 'text/html'});            
+response.write('hello world');             
 response.end();             
 break;         
 case '/socket.html':             
@@ -27,18 +33,24 @@ function(error, data){
 if (error){                     
 response.writeHead(404);                     
 response.write("opps this doesn't exist - 404");                     
-response.end();                 }                
+response.end();                 
+}                
 else{                     
-response.writeHead(200, {"Content-Type": "text/html"});                     response.write(data, "utf8");                     
-response.end();                 }             });             
+response.writeHead(200, {"Content-Type": "text/html"});                     
+response.write(data, "utf8");                     
+response.end();                 
+}});             
 break;         
 default:             response.writeHead(404);             
 response.write("opps this doesn't exist - 404");             
-response.end();             break;     } });  
+response.end();             
+break;    
+}});  
 server.listen(8001); 
  io.listen(server);
 
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
+
 I then made a socket.html file with the following code which makes a WebSocket connection. Now the server had something to listen to.  
 <html>   
 <head>     
