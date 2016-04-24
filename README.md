@@ -52,19 +52,6 @@ server.listen(8001);
 
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
 
-I then made a socket.html file with the following code which makes a WebSocket connection. Now the server had something to listen to.  
-<html>   
-<head>     
-<script src="/socket.io/socket.io.js"></script>   
-</head>   
-<body>     
-<script>       
-var socket = io.connect();     
-</script>     
-<div>This is our socket.html file</div>   
-</body> 
-</html>
-
 I then created a mobile.html file which would be responsible for sending device orientation information to the server. The main source code for this file was:
   // connect socket
     var socket = io.connect();
