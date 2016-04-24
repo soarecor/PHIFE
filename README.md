@@ -61,7 +61,6 @@ switch(path){
 	server.listen(8001); 
 	 io.listen(server);
 	 ```
-
 All we added here was a require for the socket.io module at the top and the line io.listen(server);. When the server was instantiated, we opened a listener for socket.io. This means that our server listened for pages loaded by the server that had a WebSocket connection instantiated on them. 
 Provide code examples and explanations of how to get the project.
 
@@ -81,12 +80,12 @@ socket.emit('playMusic', {'play': false});
 
 
 if (window.DeviceOrientationEvent) {
-window.addEventListener('deviceorientation', function(eventData){
-var tiltLR = eventData.gamma;
-var tiltFB = eventData.beta;
-var dir = 0;
-socket.emit('deviceMove', {'lr': tiltLR, 'fb': tiltFB, 'dir': dir});
-DeviceOrientationHandler(tiltLR, tiltFB, dir);}, false);
+	window.addEventListener('deviceorientation', function(eventData){
+	var tiltLR = eventData.gamma;
+	var tiltFB = eventData.beta;
+	var dir = 0;
+	socket.emit('deviceMove', {'lr': tiltLR, 'fb': tiltFB, 'dir': dir});
+	DeviceOrientationHandler(tiltLR, tiltFB, dir);}, false);
 } 
 else {
 	alert("not supported");
